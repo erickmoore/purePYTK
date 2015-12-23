@@ -1,0 +1,71 @@
+from purestorage import purestorage
+import sys
+import requests
+import time
+import logging
+
+# Disable certificate warnings
+
+requests.packages.urllib3.disable_warnings()
+
+# Set variables
+
+array_name = ""
+array_api = ""
+
+new_vol_prefix = (time.strftime("%m-%d-%y"))
+vol_list = ["ora-db01", "ora-db02", "ora-db03", "ora-db04", "ora-db05"]
+host_name = "oracluster"
+
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+                    datefmt='%d-%b-%Y  %H:%I:%S',
+                    filename="dbClone-" + new_vol_prefix + ".log",
+                    filemode='a')
+
+# Connect to FlashArray
+
+try:
+
+    array = purestorage.FlashArray(array_name, api_token=array_api)
+    logging.info("Succesfully connected to FlashArray: " + array_name)
+
+except Exception, e:
+
+    logging.exception(e)
+    array.invalidate_cookie()
+    sys.exit()
+
+# Insert your application/database commands here to put database in hot backup mode or quiesce
+#
+#
+#
+#
+#
+
+# Clone volumes from volume list and attach to a host group
+
+try:
+
+    for current_vol in vol_list:
+
+        vol_copy_name = new_vol_prefix + "-" + array.get_volume(current_vol)['name']
+        array.copy_volume(current_vol, vol_copy_name)
+        logging.info("Copied volume: " + current_vol + " to new volume: " + vol_copy_name)
+        array.connect_hgroup(host_name, vol_copy_name)
+        logging.info("Attached volume: " + vol_copy_name + " to host(s): " + host_name)
+
+except Exception, e:
+
+    logging.exception(e)
+    array.invalidate_cookie()
+    sys.exit()
+
+# Insert your commands to rescan scsi devices/bring databases and applications online with new volumes
+#
+#
+#
+#
+#
+
+array.invalidate_cookie()
