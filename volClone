@@ -17,6 +17,8 @@ new_vol_prefix = (time.strftime("%m-%d-%y"))
 vol_list = ["ora-db01", "ora-db02", "ora-db03", "ora-db04", "ora-db05"]
 host_name = "oracluster"
 
+# Configure logging
+
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
                     datefmt='%d-%b-%Y  %H:%I:%S',
