@@ -61,6 +61,8 @@ try:
         if array.list_volume_private_connections(vol_copy_name) == []:
             array.connect_host(host_name, vol_copy_name)
             logging.info("Attached volume: " + vol_copy_name + " to host(s): " + host_name)
+        else:
+            logging.info("Volume: " + current_vol + " refreshed to host: " + host_name)
 
 except Exception, e:
 
