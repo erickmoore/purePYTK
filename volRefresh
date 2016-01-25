@@ -23,7 +23,7 @@ host_name = "oracluster"
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
                     datefmt='%d-%b-%Y  %H:%I:%S',
-                    filename="volClone-" + log_name + ".log",
+                    filename="volRefresh-" + log_name + ".log",
                     filemode='a')
 
 # Connect to FlashArray
