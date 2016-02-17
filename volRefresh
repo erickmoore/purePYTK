@@ -26,6 +26,8 @@ logging.basicConfig(level=logging.INFO,
                     filename="volRefresh-" + log_name + ".log",
                     filemode='a')
 
+logging.getLogger("requests").setLevel(logging.WARNING)
+
 # Connect to FlashArray
 
 try:
